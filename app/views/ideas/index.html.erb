@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ideas</h1>
+
+<table>
+  <thead>
+
+  </thead>
+
+  <tbody>
+    <% @ideas.each do |idea| %>
+      <tr>
+        <h2><%= link_to idea.title, idea %></h2>
+        <h4><%= idea.description %></h4>
+
+      
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+
+  <h1><%= @idea.title %></h1>
+</p>
+
+<p>
+  <h3><%= @idea.description %></h3>
+</p>
+
+
+<%= link_to 'Edit', edit_idea_path(@idea) %>
+<%= link_to 'Delete', @idea, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Back', ideas_path %>
+
+
+<h1> Reviews </h1>
+
+
+<h3> Create a Review </h1>
+
+  <%= form_for [@idea, @rating] do |f| %>
+
+
+<%= f.label :body %>
+<%= f.text_area :body %>
+
+<%= f.submit %>
+
+<% @idea.ratings.each do |rating| %>
+<h3><%=rating.body %></h3>
+<%= link_to 'Edit', edit_idea_rating_path(@idea,rating) %>
+<%= link_to 'Delete', idea_rating_path(@idea,rating),
+                       method: :delete,
+                       data: {confirm: 'Are you sure?'} %>
+<% end %>
+
+<% end %>
