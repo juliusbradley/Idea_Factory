@@ -15,5 +15,6 @@ def authenticate_user!
   if !user_signed_in?
     redirect_to new_session_path, notice: 'You must be signed in!'
   end
+
 end
 end

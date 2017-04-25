@@ -1,6 +1,12 @@
-<h1>Editing Rating</h1>
+<h1>Edit Review</h1>
 
-<%= render 'form', rating: @rating %>
 
-<%= link_to 'Show', @rating %> |
-<%= link_to 'Back', ratings_path %>
+<%= form_for [@idea, @rating] do |f| %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+
+  <%= f.submit %>
+
+  <%= link_to 'Back', ideas_path %>
+
+<% end  %>

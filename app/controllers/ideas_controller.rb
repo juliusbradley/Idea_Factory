@@ -10,8 +10,10 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1
   # GET /ideas/1.json
+
   def show
     @idea = Idea.find params[:id]
+    @user = @idea.user
    @rating = Rating.new
   end
 
@@ -66,12 +68,17 @@ class IdeasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
+  def post_owner
+   @post_owner = Idea.find(params[:user_id])
+  end
+
+
     def set_idea
       @idea = Idea.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+
     def idea_params
       params.require(:idea).permit(:title, :description, :text)
     end

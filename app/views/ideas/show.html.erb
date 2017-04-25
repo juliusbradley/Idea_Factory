@@ -9,11 +9,26 @@
   <h3><%= @idea.description %></h3>
 </p>
 
+<p>
+  <h3>Created by: <%= @user.username %></h3>
+</p>
 
+
+<% if current_user == @user %>
 <%= link_to 'Edit', edit_idea_path(@idea) %>
 <%= link_to 'Delete', @idea, method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
+
 <%= link_to 'Back', ideas_path %>
 
+<% if @idea.liked_by?(current_user) %>
+    <%= link_to 'Unlike', idea_like_path(@idea, idea.like_for(current_user)), method: :delete %>
+  <% else %>
+    <%= link_to 'Like', idea_likes_path(@idea), method: :post %>
+  <% end %>
+
+
+<span><%= pluralize(@idea.likes.count, 'like') %></span>
 
 <h1> Reviews </h1>
 
@@ -28,12 +43,14 @@
 
 <%= f.submit %>
 
+<% end %>
+
 <% @idea.ratings.each do |rating| %>
 <h3><%=rating.body %></h3>
+<% if current_user == rating.user %>
 <%= link_to 'Edit', edit_idea_rating_path(@idea,rating) %>
 <%= link_to 'Delete', idea_rating_path(@idea,rating),
                        method: :delete,
                        data: {confirm: 'Are you sure?'} %>
 <% end %>
-
 <% end %>

@@ -19,7 +19,9 @@ class RatingsController < ApplicationController
 
   # GET /ratings/1/edit
   def edit
-  end
+    @rating = Rating.find(params[:id])
+      @idea = Idea.find(params[:idea_id])
+end
 
   # POST /ratings
   # POST /ratings.json
@@ -46,17 +48,28 @@ class RatingsController < ApplicationController
 
   # PATCH/PUT /ratings/1
   # PATCH/PUT /ratings/1.json
+  # def update
+  #   respond_to do |format|
+  #     if @rating.update(rating_params)
+  #       format.html { redirect_to idea_path, notice: 'Rating was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @idea }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @rating.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
   def update
-    respond_to do |format|
-      if @rating.update(rating_params)
-        format.html { redirect_to @rating, notice: 'Rating was successfully updated.' }
-        format.json { render :show, status: :ok, location: @rating }
+    @rating = Rating.find(params[:id])
+    @idea  = Idea.find(params[:idea_id])
+      if @rating.update rating_params
+        redirect_to idea_path(@idea)
       else
-        format.html { render :edit }
-        format.json { render json: @rating.errors, status: :unprocessable_entity }
+        redirect_to root_path(@idea, @rating)
       end
     end
-  end
+
+
 
   # DELETE /ratings/1
   # DELETE /ratings/1.json
